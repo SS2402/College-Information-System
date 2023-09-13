@@ -137,11 +137,11 @@ class Courses extends College {
     {
         try
         {
-            for (UG UGCourse : UG.UG_DB)
-                if (UGCourse.courseCode.equals(CourseCode))
+            for (UG UGCourses : UG.UG_DB)
+                if (UGCourses.courseCode.equals(CourseCode))
                     throw new ExistingCourseCodeException("Existing COURSE CODE");
-            for (PG PGCourse : PG.PG_DB)
-                if (PGCourse.courseCode.equals(CourseCode))
+            for (PG PGCourses : PG.PG_DB)
+                if (PGCourses.courseCode.equals(CourseCode))
                     throw new ExistingCourseCodeException("Existing COURSE CODE");
         }
         catch(NullPointerException ignored){}
@@ -152,11 +152,11 @@ class Courses extends College {
     {
         try
         {
-            for (UG UGCourse : UG.UG_DB)
-                if (UGCourse.courseName.equals(CourseName))
+            for (UG UGCourses : UG.UG_DB)
+                if (UGCourses.courseName.equals(CourseName))
                     throw new ExistingCourseNameException("Existing COURSE CODE");
-            for (PG PGCourse : PG.PG_DB)
-                if (PGCourse.courseName.equals(CourseName))
+            for (PG PGCourses : PG.PG_DB)
+                if (PGCourses.courseName.equals(CourseName))
                     throw new ExistingCourseNameException("Existing COURSE NAME");
         }
         catch(NullPointerException ignored){}
@@ -167,12 +167,8 @@ class Courses extends College {
    {
        try
        {
-            for (UG UGCourse : UG.UG_DB)
-                if (UGCourse.courseDuration < 1)
-                    throw new CourseDurationException("Invalid COURSE DURATION");
-            for (PG PGCourse : PG.PG_DB)
-                if (PGCourse.courseDuration < 1)
-                    throw new CourseDurationException("Invalid COURSE DURATION");
+           if (CourseDuration < 1)
+               throw new CourseDurationException("Invalid COURSE DURATION");
         }
        catch(NullPointerException ignored){}
        this.courseDuration=CourseDuration;
@@ -182,12 +178,8 @@ class Courses extends College {
     {
         try
         {
-            for (UG UGCourse : UG.UG_DB)
-                if (UGCourse.minCredits < 16 | UGCourse.minCredits > 27)
-                    throw new MinCreditsException("Minimum CREDITS : 16 Expected");
-            for (PG PGCourse : PG.PG_DB)
-                if (PGCourse.minCredits < 16 | PGCourse.minCredits > 27)
-                    throw new MinCreditsException("Minimum CREDITS : 16 Expected");
+            if (MinCredits < 16 | MinCredits > 27)
+                throw new MinCreditsException("Minimum CREDITS : 16 Expected");
         }
         catch(NullPointerException ignored){}
         this.minCredits=MinCredits;
@@ -197,12 +189,8 @@ class Courses extends College {
     {
         try
         {
-            for (UG UGCourse : UG.UG_DB)
-                if (UGCourse.maxCredits > 27 | UGCourse.maxCredits < 16)
-                    throw new MaxCreditsException("Maximum CREDITS : 27");
-            for (PG PGCourse : PG.PG_DB)
-                if (PGCourse.maxCredits > 27 | PGCourse.maxCredits < 16)
-                    throw new MaxCreditsException("Maximum CREDITS : 27");
+            if (MaxCredits > 27 | MaxCredits < 16)
+                throw new MaxCreditsException("Maximum CREDITS : 27");
         }
         catch(NullPointerException ignored){}
         this.maxCredits=MaxCredits;
@@ -314,9 +302,8 @@ class UG extends Courses
     {
         try
         {
-            for(UG UGCourse : UG.UG_DB)
-                if(UGCourse.HSPercentage < 0 | UGCourse.HSPercentage > 100)
-                    throw new HSPercentageException("Invalid HS Percentage");
+            if(HSPercentage < 0 | HSPercentage > 100)
+                throw new HSPercentageException("Invalid HS Percentage");
         }
         catch(NullPointerException ignored){}
         this.HSPercentage = HSPercentage;
@@ -401,16 +388,16 @@ class UG extends Courses
         catch(NullPointerException ignored){}
     }
 
-    static void DisplaySpecificInfo(String courseCode)
+    static void DisplaySpecificInfo(String cCODE)
     {
         try
         {
             for (UG UGCourses : UG_DB)
             {
-                if(UGCourses.courseCode.equals(courseCode))
+                if(UGCourses.courseCode.equals(cCODE))
                 {
                     System.out.println("----UG DATABASE----");
-                    System.out.printf("%-12s %-80s %-8s %-10s %-15s %-15s %-15s %-10s","COURSE CODE","COURSE NAME","DEPT ID","DEPT NAME","COURSE DURATION","MINIMUM CREDITS","MAXIMUM CREDITS","HS PERCENTAGE");
+                    System.out.printf("%-12s %-80s %-8s %-10s %-15s %-15s %-15s %-10s\n","COURSE CODE","COURSE NAME","DEPT ID","DEPT NAME","COURSE DURATION","MINIMUM CREDITS","MAXIMUM CREDITS","HS PERCENTAGE");
                     UGCourses.Display();
                     System.out.println();
                     break;
